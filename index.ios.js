@@ -1,1 +1,1 @@
-require('./view/HomeView');
+require('./view/NavigatorBar');

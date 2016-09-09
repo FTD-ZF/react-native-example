@@ -5,10 +5,10 @@
  */
 
 import React, {Component} from 'react';
+import Picker from './picker/picker';
 const Colors = require('../common/Colors');
 const CommonStyles = require('../common/CommonStyles');
 import {
-    AppRegistry,
     StyleSheet,
     Text,
     ListView,
@@ -18,7 +18,7 @@ import {
     Platform
 } from 'react-native';
 
-class RNExample extends Component {
+class HomeView extends Component {
 
     constructor(props) {
         super(props);
@@ -48,20 +48,18 @@ class RNExample extends Component {
           <View>
             <StatusBar backgroundColor="blue" barStyle='light-content' />
           <View style={styles.navView}>
-            <View style={{alignItems: 'center',justifyContent: 'center',height:44,marginTop:20}}>
+            <View style={styles.navTitleView}>
             <Text style={styles.title}>Example</Text>
               </View>
           </View>
-          <ListView dataSource={this.state.dataSource} renderRow={this.renderRow.bind(this)} style={{
-            backgroundColor: 'white',flex: 1
-        }}/>
+          <ListView dataSource={this.state.dataSource} renderRow={this.renderRow.bind(this)}/>
         </View>
         );
     }
 
     renderRow(contentData, sectionID, rowID) {
         return (
-            <TouchableOpacity onPress={() => this.clickRow(contentData, rowID)}>
+            <TouchableOpacity onPress={() => this.clickRow(rowID)}>
                 <View style={styles.container}>
                     <Text style={styles.cellTitle}>{contentData.name}</Text>
                 </View>
@@ -69,20 +67,33 @@ class RNExample extends Component {
 
         );
     }
+
+    clickRow(rowID) {
+      if (rowID == '0') {
+      this.props.navigator.push({
+        title: '联动',
+        component: Picker
+      });
+    }
+    }
 }
 
 const styles = StyleSheet.create({
     navView: {
-      color:'white',
       backgroundColor:Colors.blue,
-      height:64,
-      textAlign: 'center'
+      height:64
+    },
+    navTitleView: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      height:44,
+      marginTop:20
     },
     container: {
-        height: 64,
+        height: 50,
         backgroundColor: 'white',
-        borderBottomColor: 'gray',
         borderBottomWidth: 1,
+        borderBottomColor: 'gray',
         alignItems: 'center',
         justifyContent: 'center'
     },
@@ -92,14 +103,8 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     cellTitle: {
-        fontSize: 20,
+        fontSize: 17,
         textAlign: 'center'
-    },
-    cellView: {
-        flex: 1,
-        backgroundColor: 'white',
-        height: 50
     }
 });
-
-AppRegistry.registerComponent('RNExample', () => RNExample);
+module.exports = HomeView;

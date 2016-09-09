@@ -20,7 +20,7 @@ class BackBtn extends Component {
     render() {
         return (
             <TouchableOpacity onPress={() => this.popView()}
-                                style={this.props.style}
+                                style={}
                         activeOpacity={1}>
                 <Image style={{width: 13,height: 20,marginLeft:12}}
                       source={require('../../img/whiteBack.png')}/>
